@@ -1,0 +1,308 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ */
+package dashboard;
+
+import domain.Conexion;
+import java.sql.*;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+/**
+ *
+ * @author andre
+ */
+public class panelEstados extends javax.swing.JPanel {
+
+    DefaultTableModel modelo = new DefaultTableModel();
+
+    /**
+     * Creates new form panelDespachados
+     */
+    public panelEstados() {
+        initComponents();
+        modelo.addColumn("Código");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Documento");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Documento");
+        modelo.addColumn("Estado");
+        tabla.setModel(modelo);
+        seleccionarDespachados();
+        seleccionarEsperando();
+        seleccionarCancelados();
+    }
+
+    public final void seleccionarDespachados() {
+       
+        Conexion con = new Conexion();
+        Connection cx = con.getConexion();
+        String SELECT = "SELECT codigo, nombreprod, nombreVend, dniVend, nombreComp, dniComp, estado FROM test.basedatospro WHERE estado = ?";
+        String estado = "Despachado";
+        try {
+            PreparedStatement ps = cx.prepareStatement(SELECT);
+            ps.setString(1, estado);
+            ResultSet rs = ps.executeQuery();
+            ResultSetMetaData rsmt = rs.getMetaData();
+            int cantidad = rsmt.getColumnCount();
+            Object[] filas = new Object[cantidad];
+            while (rs.next()) {
+                for (int i = 0; i < cantidad; i++) {
+                    filas[i] = rs.getObject(i + 1);
+                }
+                this.modelo.addRow(filas);
+            }
+
+            cx.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "error al selccionar " + e.getMessage());
+        }
+    }
+    
+    public final void seleccionarEsperando(){
+        DefaultTableModel modelo2 = new DefaultTableModel();
+        modelo2.addColumn("Código");
+        modelo2.addColumn("Nombre");
+        modelo2.addColumn("Nombre");
+        modelo2.addColumn("Documento");
+        modelo2.addColumn("Nombre");
+        modelo2.addColumn("Documento");
+        modelo2.addColumn("Estado");
+        tablaEsperando.setModel(modelo2);
+        
+        Conexion con = new Conexion();
+        Connection cx = con.getConexion();
+        String SELECT = "SELECT codigo, nombreprod, nombreVend, dniVend, nombreComp, dniComp, estado FROM test.basedatospro WHERE estado = ?";
+        String estado = "Esperando";
+        try {
+            PreparedStatement ps = cx.prepareStatement(SELECT);
+            ps.setString(1, estado);
+            ResultSet rs = ps.executeQuery();
+            ResultSetMetaData rsmt = rs.getMetaData();
+            int cantidad = rsmt.getColumnCount();
+            Object[] filas = new Object[cantidad];
+            while (rs.next()) {
+                for (int i = 0; i < cantidad; i++) {
+                    filas[i] = rs.getObject(i + 1);
+                }
+                modelo2.addRow(filas);
+            }
+
+            cx.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "error al selccionar " + e.getMessage());
+        }
+    }
+
+    
+    public final void seleccionarCancelados(){
+        DefaultTableModel modelo3 = new DefaultTableModel();
+        modelo3.addColumn("Código");
+        modelo3.addColumn("Nombre");
+        modelo3.addColumn("Nombre");
+        modelo3.addColumn("Documento");
+        modelo3.addColumn("Nombre");
+        modelo3.addColumn("Documento");
+        modelo3.addColumn("Estado");
+        tablaCancelados.setModel(modelo3);
+        
+        Conexion con = new Conexion();
+        Connection cx = con.getConexion();
+        String SELECT = "SELECT codigo, nombreprod, nombreVend, dniVend, nombreComp, dniComp, estado FROM test.basedatospro WHERE estado = ?";
+        String estado = "Cancelado";
+        try {
+            PreparedStatement ps = cx.prepareStatement(SELECT);
+            ps.setString(1, estado);
+            ResultSet rs = ps.executeQuery();
+            ResultSetMetaData rsmt = rs.getMetaData();
+            int cantidad = rsmt.getColumnCount();
+            Object[] filas = new Object[cantidad];
+            while (rs.next()) {
+                for (int i = 0; i < cantidad; i++) {
+                    filas[i] = rs.getObject(i + 1);
+                }
+                modelo3.addRow(filas);
+            }
+
+            cx.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "error al selccionar " + e.getMessage());
+        }
+    }
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tabla = new dashborads.TableDark();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tablaEsperando = new dashborads.TableDark();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tablaCancelados = new dashborads.TableDark();
+
+        setBackground(new java.awt.Color(60, 63, 65));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(60, 63, 65));
+
+        tabla.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tabla);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1021, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 485, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(90, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab(" Despachados", jPanel1);
+
+        jPanel2.setBackground(new java.awt.Color(60, 63, 65));
+
+        tablaEsperando.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(tablaEsperando);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 1021, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 485, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(90, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Esperando", jPanel2);
+
+        jPanel3.setBackground(new java.awt.Color(60, 63, 65));
+
+        tablaCancelados.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane4.setViewportView(tablaCancelados);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 1021, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(7, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 485, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(90, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Cancelados", jPanel3);
+
+        add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 1050, -1));
+    }// </editor-fold>//GEN-END:initComponents
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private dashborads.TableDark tabla;
+    private dashborads.TableDark tablaCancelados;
+    private dashborads.TableDark tablaEsperando;
+    // End of variables declaration//GEN-END:variables
+}
